@@ -1,4 +1,4 @@
-# Your Project Title Here
+# Capstone Azure ML Engineer Udacity Nanodegree
 
 In this project, I created two classification models to predict the whether a patient is likely to have a stroke or not. 
 
@@ -56,6 +56,8 @@ The dataset was downloaded from Kaggle.com and uploaded to my AzureML workspace 
 
 ![Dataset registered with Azure ML](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/513f7d051e5cf2ca0839f6d8a4f60891ddde3818/Screenshots/Dataset%20Registered.jpg)
 
+
+
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 
@@ -78,22 +80,41 @@ The best automl model was a Voting Ensemble with an accuracy score of 0.95245 th
 
 ![AutoML Best Model Voting Ensemble](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/e66411afc5764c64b996ec07b85885f310873d29/Screenshots/AutoML%20Best%20Model%20VotingEnsemble.jpg)
 
+![25 different models were attempted](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/35bb390d93579baf6bb72392e13ed9a9df27bb19/Screenshots/AutoML%20Best%20Model%20VotingEnsemble%20attemps.jpg)
 
+![AutoML Best Model Voting Ensemble detailed submodels](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/35bb390d93579baf6bb72392e13ed9a9df27bb19/Screenshots/AutoML%20Best%20Model%20Voting%20Ensemble%20detailed%20submodels.jpg)
 
+![Extensive list of parameters used within the various models that comprise the VotingEnsemble](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/3d7e49619e4754e4403e64f8abd81cb9490f053d/Screenshots/AutoML%20Best%20Model%20Voting%20Ensemble%20detailed%20submodels%202.jpg)
 
+![AutoML RunDetails widget](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/35bb390d93579baf6bb72392e13ed9a9df27bb19/Screenshots/AutoML%20RunDetails%20Widget%20GUI.jpg)
 
+The final model's accuracy could have been improved by allowing more training time to search for optimal weighted models. Additionally, the class imbalance issue could be addressed to improve the real-world accuracy of the model. 
 
+![Azure data guardrails warning - class imbalance](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/35bb390d93579baf6bb72392e13ed9a9df27bb19/Screenshots/AutoML%20Best%20Model%20Data%20Guardrails.jpg)
 
+In terms of the most important factors that predict whether or not a person will have a stroke, Age was found to be the most important factor, followed by Average Glucose Levels.
 
+![Voting Ensemble feature importance explanation](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/35bb390d93579baf6bb72392e13ed9a9df27bb19/Screenshots/AutoML%20Best%20Model%20VotingEnsemble%20Explained.jpg)
 
+This VotingEnsemble model was registered as a Model in Azure ML and eventually deployed. 
 
+![VotingEnsemble model registered in Azure via SDK](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/149bc9c4bc7d5e3d935317bb5aef680a5fd8e6af/Screenshots/Best%20AutoML%20model%20registered%20and%20deployed.jpg)
 
-
-
-
+![VotingEnsemble model appears as a registered model in Azure ML](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/149bc9c4bc7d5e3d935317bb5aef680a5fd8e6af/Screenshots/AutoML%20Model%20Deployed.jpg)
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
+
+Since this task involved binary classification, a Logistic Regression model from the sklearn library was chosen. This model is quick to train and tune while still providing a high level of prediction accuracy. 
+
+Two hyperparameters were selected for tuning with Azure HyperDrive:
+
+- C (inverse of regularization strength): This parameters determines the degree of regularization and helps to prevent the model from overfitting. Smaller values lead to stronger regularization. The values tried were 0.001,0.01,0.1,1.0,10.0 and 50.0. 
+- Maximum iterations: It was set to choose from 10 and 25. This parameter defines the maximum number of iterations allowed for the algorithm's solver to converge on a solution.
+
+The RandomParameterSampling method was used to search the hyperparameter grid space. 
+
+
 
 
 ### Results
