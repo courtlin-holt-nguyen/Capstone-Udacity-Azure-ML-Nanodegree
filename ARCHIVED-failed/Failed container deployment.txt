@@ -1,0 +1,59 @@
+2021-09-12T06:54:09,742648600+00:00 - gunicorn/run 
+2021-09-12T06:54:09,744021800+00:00 - nginx/run 
+2021-09-12T06:54:09,745098600+00:00 - rsyslog/run 
+Dynamic Python package installation is disabled.
+Starting HTTP server
+2021-09-12T06:54:09,745036700+00:00 - iot-server/run 
+rsyslogd: /azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/libuuid.so.1: no version information available (required by rsyslogd)
+EdgeHubConnectionString and IOTEDGE_IOTHUBHOSTNAME are not set. Exiting...
+2021-09-12T06:54:10,053187600+00:00 - iot-server/finish 1 0
+2021-09-12T06:54:10,056076000+00:00 - Exit code 1 is normal. Not restarting iot-server.
+Starting gunicorn 20.1.0
+Listening at: http://127.0.0.1:31311 (141)
+Using worker: sync
+worker timeout is set to 300
+Booting worker with pid: 169
+SPARK_HOME not set. Skipping PySpark Initialization.
+Generating new fontManager, this may take some time...
+Exception in worker process
+Traceback (most recent call last):
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/arbiter.py", line 589, in spawn_worker
+    worker.init_process()
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.load_wsgi()
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+    self.wsgi = self.app.wsgi()
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/app/base.py", line 67, in wsgi
+    self.callable = self.load()
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+    return self.load_wsgiapp()
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+    return util.import_app(self.app_uri)
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/site-packages/gunicorn/util.py", line 359, in import_app
+    mod = importlib.import_module(module)
+  File "/azureml-envs/azureml_77e992fdaf2b83b0c81ee1c90ded8d17/lib/python3.6/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 978, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 961, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 950, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 655, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 678, in exec_module
+  File "<frozen importlib._bootstrap>", line 205, in _call_with_frames_removed
+  File "/var/azureml-server/entry.py", line 1, in <module>
+    import create_app
+  File "/var/azureml-server/create_app.py", line 4, in <module>
+    from routes_common import main
+  File "/var/azureml-server/routes_common.py", line 32, in <module>
+    from aml_blueprint import AMLBlueprint
+  File "/var/azureml-server/aml_blueprint.py", line 30, in <module>
+    import main
+  File "/var/azureml-app/main.py", line 22, in <module>
+    output_sample = np.array([false])
+NameError: name 'false' is not defined
+Worker exiting (pid: 169)
+Shutting down: Master
+Reason: Worker failed to boot.
+2021-09-12T06:54:12,658548900+00:00 - gunicorn/finish 3 0
+2021-09-12T06:54:12,660624500+00:00 - Exit code 3 is not normal. Killing image.
+2021-09-12T06:54:12,683890500+00:00 - nginx/finish 0 0
+2021-09-12T06:54:12,686239400+00:00 - Exit code 0 is not normal. Killing image.
