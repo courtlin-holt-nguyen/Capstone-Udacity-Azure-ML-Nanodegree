@@ -177,7 +177,11 @@ The JSON-formatted API request input data should have the following format:
 
 As a final cleanup step, the Python SDK was also used to delete the compute cluster and the deployed model (i.e. service) via these commands:
 
+service.delete()
 
+compute_target.delete()
+
+![Final cleanup of service and compute resources](https://github.com/icenine81/Capstone_udacity_ml_nanodegree/blob/b09b8c8d43a71caf1f0caf2e73da627f0370141e/Screenshots/Cleanup%20delete%20compute%20and%20deployed%20service.jpg)
 
 
 

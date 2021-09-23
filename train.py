@@ -15,6 +15,14 @@ from azureml.data.dataset_factory import TabularDatasetFactory
 # "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
 
 from azureml.core.dataset import Dataset
+from azureml.core import Workspace, Experiment
+
+
+run = Run.get_context(allow_offline=True)
+ws = run.experiment.workspace #req'd for authentication for accessing local storage ie. blobstore
+
+# ws = Workspace.get(name="udacity-courtlin",subscription_id="bd6c48f0-b2f5-4fd8-b4de-3351b13cbee8", resource_group="udacity-nano-degree")
+
 
 ds = Dataset.get_by_name(ws, name='healthcare-dataset-stroke-data')
 
@@ -24,7 +32,6 @@ ds = Dataset.get_by_name(ws, name='healthcare-dataset-stroke-data')
 
 # ds = TabularDatasetFactory.from_delimited_files(path=url_paths)
 
-run = Run.get_context(allow_offline=True)
 
 def clean_data(data):
     # Dict for cleaning data
@@ -33,6 +40,11 @@ def clean_data(data):
 
     # Clean and one hot encode data
     x_df = data.to_pandas_dataframe().dropna()
+    
+    gender = pd.get_dummies(x_df.gender, prefix="gender")
+    x_df.drop("gender", inplace=True, axis=1)
+    x_df = x_df.join(gender)
+    
     work_type = pd.get_dummies(x_df.work_type, prefix="work_type")
     x_df.drop("work_type", inplace=True, axis=1)
     x_df = x_df.join(work_type)
@@ -40,9 +52,11 @@ def clean_data(data):
     # x_df["default"] = x_df.default.apply(lambda s: 1 if s == "yes" else 0)
     # x_df["housing"] = x_df.housing.apply(lambda s: 1 if s == "yes" else 0)
     # x_df["loan"] = x_df.loan.apply(lambda s: 1 if s == "yes" else 0)
+    
     Residence_type = pd.get_dummies(x_df.Residence_type, prefix="Residence_type")
     x_df.drop("Residence_type", inplace=True, axis=1)
     x_df = x_df.join(Residence_type)
+
     smoking_status = pd.get_dummies(x_df.smoking_status, prefix="smoking_status")
     x_df.drop("smoking_status", inplace=True, axis=1)
     x_df = x_df.join(smoking_status)
@@ -80,7 +94,7 @@ def main():
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
-    run.log("accuracy", np.float(accuracy))
+    run.log("Accuracy", np.float(accuracy))
     
     os.makedirs('outputs', exist_ok=True)
     joblib.dump(value=model, filename='outputs/model.pkl')

@@ -10,6 +10,7 @@ import pandas as pd
 import joblib
 
 import azureml.automl.core
+import azureml.train.automl
 from azureml.automl.core.shared import logging_utilities, log_server
 from azureml.telemetry import INSTRUMENTATION_KEY
 
@@ -32,13 +33,12 @@ except:
 
 def init():
     global model
-    # The model.id of the model that we want to deploy. 
-    # Deserialize the model back into a sklearn model
     model_path = os.path.join(os.getenv('AZUREML_MODEL_DIR'), 'model.pkl')
-    # path = os.path.normpath(model_path)
-    # path_split = path.split(os.sep)
-    # log_server.update_custom_dimensions(
-    #     {'model_name': path_split[-3], 'model_version': path_split[-2]})
+    model = joblib.load(model_path)
+    path = os.path.normpath(model_path)
+    path_split = path.split(os.sep)
+    log_server.update_custom_dimensions(
+        {'model_name': path_split[-3], 'model_version': path_split[-2]})
     try:
         logger.info("Loading model from path.")
         model = joblib.load(model_path)
