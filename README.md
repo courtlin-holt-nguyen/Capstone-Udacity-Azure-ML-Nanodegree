@@ -1,6 +1,6 @@
 # Capstone Azure ML Engineer Udacity Nanodegree
 
-In this project, I created two classification models to predict the whether a patient is likely to have a stroke or not. 
+In this project, I created two classification models to predict whether a patient is likely to have a stroke or not. 
 
 The first classification model uses Azure AutoML to test various classifications models and selects the best one based on overall Accuracy. The second classification model uses logistic regression via sklearn and Hyperdrive to test various combinations of hyperparameters, - `C` (Inverse of regularization strength) and `max_iter` (Maximum number of iterations taken to converge), in an attempt to find the optimal model. Once the best AutoML model was found, it was deployed as a webservice and test patient data was sent to the deployed model to generate a response prediction, i.e. True or False.  
 
